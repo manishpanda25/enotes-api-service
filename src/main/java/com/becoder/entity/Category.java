@@ -1,4 +1,4 @@
-package com.becoder.dto;
+package com.becoder.entity;
 
 public class Category {
 	private int id;
