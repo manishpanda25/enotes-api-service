@@ -14,18 +14,12 @@ import lombok.Setter;
 public class CategoryDto {
 	
 	private Integer id;
-	
 	private String name;
-	
 	private String description;
-	
-	private Boolean is_active;
-	
-	private Integer created_by;
-	
-	private Date created_on;
-	
-	private Integer updated_by;
-	
-	private Date updated_on;
+
+	private Boolean isActive;
+	private Integer createdBy;
+	private Date createdOn;
+	private Integer updatedBy;
+	private Date updatedOn;
 }
