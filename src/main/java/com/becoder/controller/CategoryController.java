@@ -20,6 +20,7 @@ import com.becoder.entity.Category;
 import com.becoder.exception.ResourceNotFoundException;
 import com.becoder.service.CategoryService;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
@@ -30,7 +31,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categorydto){
+	public ResponseEntity<?> saveCategory(@Valid @RequestBody CategoryDto categorydto){
 		Boolean saveCategory = categoryService.saveCategory(categorydto);
 		if(saveCategory) {
 			return new ResponseEntity<>("saved",HttpStatus.CREATED);
