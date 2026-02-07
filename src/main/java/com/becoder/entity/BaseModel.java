@@ -2,6 +2,7 @@ package com.becoder.entity;
 
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +12,11 @@ import lombok.Setter;
 @MappedSuperclass
 public class BaseModel {
 	
-	private boolean isActive;
-	private boolean isDeleted;
+	@Column(name="is_active")
+	private boolean active;
+	
+	@Column(name="is_deleted")
+	private boolean deleted;
 	private Integer createdBy;
 	private Date createdOn;
 	private Integer updatedBy;
