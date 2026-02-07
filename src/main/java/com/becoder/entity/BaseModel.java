@@ -17,7 +17,7 @@ public class BaseModel {
 	private Date createdOn;
 	private Integer updatedBy;
 	private Date updatedOn;
-	
+
 	
 
 }
