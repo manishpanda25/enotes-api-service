@@ -33,7 +33,6 @@ public class CategoryServiceImpl implements CategoryService {
 //		category.setActive(categoryDto.isActive());
 		
 		Category category = modelMapper.map(categoryDto, Category.class);
-		
 		category.setDeleted(false);
 		category.setCreatedBy(1);
 		category.setCreatedOn(new Date());
