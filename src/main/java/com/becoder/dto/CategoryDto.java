@@ -19,7 +19,7 @@ public class CategoryDto {
 	private Integer id;
 	
 	@NotBlank(message = "Name is required")
-	@Size(min = 10, max = 100, message = "Name must be between 10 and 100 characters")
+	@Size(min = 2, max = 100, message = "Name must be between 10 and 100 characters")
 	private String name;
 
     @NotBlank(message = "Description is required")
