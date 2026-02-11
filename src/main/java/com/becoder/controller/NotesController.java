@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.becoder.dto.CategoryDto;
 import com.becoder.dto.NotesDTO;
-import com.becoder.exception.ResourceNotFoundException;
 import com.becoder.service.NoteService;
 import com.becoder.util.CommonUtill;
 
@@ -28,8 +29,8 @@ public class NotesController {
 	
 
 	@PostMapping("/save-notes")
-	public ResponseEntity<?> saveNotes( @RequestBody NotesDTO notesDTO) throws ResourceNotFoundException {
-		Boolean saveNotes = noteService.saveNotes(notesDTO);
+	public ResponseEntity<?> saveNotes( @RequestParam String notes,@RequestParam(required = false) MultipartFile file) throws Exception {
+		Boolean saveNotes = noteService.saveNotes(notes,file);
 		if (saveNotes) {
 			return	CommonUtill.createBuildResponseMessage("Notes save successfully", HttpStatus.CREATED);
 		} else {
