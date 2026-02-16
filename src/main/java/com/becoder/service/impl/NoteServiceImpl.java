@@ -1,7 +1,9 @@
 package com.becoder.service.impl;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.becoder.dto.CategoryDto;
@@ -71,16 +74,15 @@ public class NoteServiceImpl implements NoteService {
 		if (file != null && !file.isEmpty()) {
  
 			FileDetails fileDetails = new FileDetails();
-			@Nullable
 			String originalFilename = file.getOriginalFilename();
 			fileDetails.setOriginalFileName(originalFilename);
 			fileDetails.setDisplayFileName(getDisplayName(originalFilename));
-
 			String rndString = UUID.randomUUID().toString();
 			String extension = FilenameUtils.getExtension(originalFilename);
 			String uploadedfileName = rndString + "." + extension;
 			fileDetails.setUploadFileName(uploadedfileName);
 			fileDetails.setFileSize(file.getSize());
+			
 			File saveFile = new File(uploadPath);
 			if (!saveFile.exists()) {
 				saveFile.mkdir();
@@ -117,6 +119,20 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public List<NotesDTO> getAllNotes() {
 		return notesRepository.findAll().stream().map(notes -> mapper.map(notes, NotesDTO.class)).toList();
+
+	}
+
+	@Override
+	public byte[] downLoadFile(FileDetails fileDetails) throws Exception {
+		InputStream io = new FileInputStream(fileDetails.getPath());
+	    return StreamUtils.copyToByteArray(io);
+	}
+
+	@Override
+	public FileDetails getFileDetais(Integer id) throws Exception {
+		FileDetails fileDetails = fileRepository.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("File is not available;"));
+		return fileDetails;
 
 	}
 
